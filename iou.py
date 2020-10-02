@@ -47,15 +47,34 @@ with open(sys.argv[2], 'r') as pred_file:
         box = [ float(entries[5]), float(entries[6]), float(entries[7]), float(entries[8]) ]
         predictions.append(box)
 
-print("validations: ", validations)
-print("predictions: ", predictions)
+#print("validations: ", validations)
+#print("predictions: ", predictions)
 
 iou_scores = []
+best_ious = []
+indices_of_best_ious = []
 for v in validations:
-    iou_row = []  
+    iou_row = [] 
+    index = 0
+    index_of_best_iou = 0
+    best_iou = -1
     for p in predictions:
         iou = calculate_iou_yolo(v, p)
         iou_row.append(iou)
+        if iou > best_iou:
+            best_iou = iou
+            index_of_best_iou = index
+        index = index + 1
+
+    best_ious.append(best_iou)
+    indices_of_best_ious.append(index_of_best_iou)
     iou_scores.append(iou_row)
 
-print("pair-wise iou: ", iou_scores)
+#print("pair-wise iou: ", iou_scores)
+#print("best ious: ", best_ious)
+#print("indices of best ious: ", indices_of_best_ious)
+unique_ious = 0
+unique_ious = len(set(indices_of_best_ious)) == len(indices_of_best_ious)
+if (unique_ious):
+    print("best ious: ", best_ious)
+
