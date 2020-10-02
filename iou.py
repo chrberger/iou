@@ -1,3 +1,5 @@
+# iou.py validation.txt predictions.pred
+
 from shapely.geometry import Polygon
 import sys
 
