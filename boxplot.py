@@ -3,7 +3,7 @@ import numpy as np
 import sys
 
 baseline = []
-with open('baseline.ious') as f:
+with open('psnr-hevc-cq51.csv') as f:
     lines = f.readlines()
     for line in lines:
         baseline.append(float(line))
